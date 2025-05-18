@@ -2,19 +2,18 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import React from "react";
 import { NavbarMenu } from "../mockData/data";
-import faces from "../assets/faces.jpg";
 
 const grainyBg = {
   backgroundColor: "#D4A76A",
   backgroundImage:
-    'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'2\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3CfeGaussianBlur stdDeviation=\'0.05\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+    'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'4\' numOctaves=\'8\' stitchTiles=\'stitch\'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type=\'linear\' slope=\'1.5\'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation=\'0.05\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
 };
 
 const Navbar = () => {
   const location = useLocation();
   return (
     <nav
-      className="w-full border-b border-black flex items-center justify-between px-12 h-16"
+      className="fixed top-0 left-0 w-full z-50 border-b border-black flex items-center justify-between px-12 h-16"
       style={grainyBg}
     >
       <div className="flex items-center gap-3">
