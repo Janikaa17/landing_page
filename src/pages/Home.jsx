@@ -1,8 +1,22 @@
 import faces from "../assets/download.jpg";
 import { Link } from "react-router-dom";
 import image1 from "../assets/image.jpg";
+import image2 from "../assets/image2.jpg";
+import image3 from "../assets/image3.jpg";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [image1, image2, image3]; // Updated to include image2
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div
       className="flex flex-col items-center pt-16"
@@ -66,7 +80,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-center w-full mt-6 mb-8">
-        <div className="w-full max-w-6xl" style={{ height: '1.5px', backgroundColor: '#000' }} />
+        <div className="w-full max-w-6xl" style={{ height: '1.3px', backgroundColor: '#000' }} />
       </div>
 
       {/* Two-column Info/Image Section */}
@@ -87,16 +101,54 @@ export default function Home() {
               <p className="text-base text-black mb-6">
                 Every story of transformation begins with a single voice. At TAG4Change, we amplify these voices—stories of resilience, courage, and hope from young individuals taking a stand against domestic violence. Through our initiatives, youth are not just participants; they are leaders, educators, and advocates driving meaningful change in their communities.
               </p>
-              <a
-                href="/about"
-                className="inline-block text-base font-medium text-black border-b border-black hover:text-blue-700 transition"
-              >
-                Read more
-                <span className="flex items-center justify-center w-8 h-8 text-black ">&rarr;</span>
-              </a>
+              <Link to="/about">
+                <button className="group flex items-center gap-2 text-lg text-black rounded-full px-4 py-2 hover:bg-black hover:text-white transition">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-black text-black transition duration-300 group-hover:bg-black group-hover:text-white">&rarr;</span>
+                  Read more
+                </button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Box - Image Section with Slideshow */}
+          <div className="flex-1 max-w-xl min-h-[350px] relative">
+            <div className="relative w-full h-full">
+              {images.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Youth empowerment ${index + 1}`}
+                  className={`w-full h-full object-cover border border-black shadow-md absolute transition-opacity duration-1000 ${
+                    index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              ))}
+              {/* Slideshow Navigation Dots */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === currentImageIndex ? 'bg-black' : 'bg-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="absolute bottom-6 left-6">
+              <Link to="/gallery">
+                <button className="group flex items-center gap-2 text-lg text-black rounded-full px-4 py-2 hover:bg-black hover:text-white transition">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full border border-black bg-black text-white transition duration-300 group-hover:bg-black group-hover:text-white">&rarr;</span>
+                  Gallery
+                </button>
+              </Link>
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center w-full mt-16 mb-8">
+        <div className="w-full max-w-6xl" style={{ height: '1.3px', backgroundColor: '#000' }} />
       </div>
     </div>
   );
